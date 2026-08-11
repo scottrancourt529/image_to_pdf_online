@@ -18,10 +18,9 @@
     <img src="assets/icon-192.png" alt="" class="brand-icon">
     <div>
       <h1>Image to PDF</h1>
-      <p class="tagline">Works fully offline. Nothing leaves your device.</p>
+      <p class="tagline">Convert your images to a PDF right in your browser.</p>
     </div>
   </div>
-  <span id="offline-badge" class="badge hidden">Offline</span>
 </header>
 
 <main>
@@ -122,8 +121,21 @@
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
 <footer class="app-footer">
-  <p>Runs entirely in your browser — images are never uploaded anywhere. Installable for offline use.</p>
+  <p>Runs entirely in your browser — images are never uploaded anywhere.</p>
+
+  <div class="download-container">
+    <a href="image-to-pdf-app.zip" download>
+      <button class="download-btn">Download Offline Version</button>
+    </a>
+  </div>
+
+  <div class="donate-container">
+    <a href="https://paypal.me/ScottyRancourt" target="_blank">
+      <button class="donate-btn">Donate</button>
+    </a>
+  </div>
 </footer>
+
 
 <script src="js/utils.js"></script>
 <script src="js/pdf-lib.min.js"></script>

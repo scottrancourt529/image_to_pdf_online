@@ -1,1 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to PDF Converter</title>
+<meta name="description" content="Convert images to a PDF file, entirely offline in your browser.">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
 
+<header class="app-header">
+  <div class="brand">
+    <img src="assets/icon-192.png" alt="" class="brand-icon">
+    <div>
+      <h1>Image to PDF</h1>
+      <p class="tagline">Works fully offline. Nothing leaves your device.</p>
+    </div>
+  </div>
+  <span id="offline-badge" class="badge hidden">Offline</span>
+</header>
+
+<main>
+
+  <section id="drop-zone" class="drop-zone" tabindex="0" role="button"
+           aria-label="Drop images here or click to browse">
+    <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"
+           multiple hidden>
+    <div class="drop-zone-content">
+      <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
+        <path d="M12 16V4M12 4L7 9M12 4l5 5" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <p class="drop-zone-text">
+        <strong>Drag &amp; drop images here</strong><br>
+        or <button type="button" id="browse-btn" class="link-btn">browse your files</button>
+      </p>
+      <p class="drop-zone-hint">JPG, PNG, WEBP, GIF, BMP — any number of files</p>
+    </div>
+  </section>
+
+  <section id="queue-section" class="queue-section hidden">
+    <div class="queue-header">
+      <h2>Images (<span id="image-count">0</span>)</h2>
+      <div class="queue-actions">
+        <button type="button" id="add-more-btn" class="btn btn-ghost">Add more</button>
+        <button type="button" id="clear-all-btn" class="btn btn-ghost btn-danger">Clear all</button>
+      </div>
+    </div>
+    <p class="reorder-hint">Drag thumbnails to reorder the page sequence.</p>
+    <ul id="thumb-grid" class="thumb-grid"></ul>
+  </section>
+
+  <section id="settings-section" class="settings-section hidden">
+    <h2>PDF settings</h2>
+    <div class="settings-grid">
+
+      <label class="field">
+        <span>Page size</span>
+        <select id="page-size">
+          <option value="fit">Fit to image</option>
+          <option value="a4" selected>A4</option>
+          <option value="letter">US Letter</option>
+          <option value="legal">Legal</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Orientation</span>
+        <select id="orientation">
+          <option value="auto" selected>Auto (per image)</option>
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Margin</span>
+        <select id="margin">
+          <option value="0">None</option>
+          <option value="18" selected>Small</option>
+          <option value="36">Medium</option>
+          <option value="54">Large</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Image quality</span>
+        <select id="quality">
+          <option value="0.75">Smaller file</option>
+          <option value="0.92" selected>Balanced</option>
+          <option value="1">Best quality</option>
+        </select>
+      </label>
+
+      <label class="field field-text">
+        <span>File name</span>
+        <input type="text" id="output-name" value="converted" maxlength="80">
+      </label>
+    </div>
+  </section>
+
+  <div id="progress-wrap" class="progress-wrap hidden">
+    <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+    <p id="progress-label" class="progress-label">Preparing…</p>
+  </div>
+
+  <div class="convert-bar">
+    <button type="button" id="convert-btn" class="btn btn-primary" disabled>
+      Convert to PDF
+    </button>
+  </div>
+
+</main>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<footer class="app-footer">
+  <p>Runs entirely in your browser — images are never uploaded anywhere. Installable for offline use.</p>
+</footer>
+
+<script src="js/utils.js"></script>
+<script src="js/pdf-lib.min.js"></script>
+<script src="components/dragdrop.js"></script>
+<script src="components/ui.js"></script>
+<script src="js/app.js"></script>
+<footer>
+<div class="donate-container">
+  <a href="https://paypal.me/ScottyRancourt" target="_blank">
+    <button class="donate-btn">Donate</button>
+  </a>
+</div>
+
+
+</footer>
+
+</body>
+</html>

@@ -1,1 +1,302 @@
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #eff6ff;
+  --ink: #1e293b;
+  --ink-soft: #64748b;
+  --border: #e2e8f0;
+  --bg: #f5f7fb;
+  --danger: #dc2626;
+  --radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
 
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 24px 20px 12px;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon { width: 40px; height: 40px; border-radius: 10px; }
+.brand h1 { font-size: 1.25rem; margin: 0; }
+.tagline { margin: 2px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+
+.badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.hidden { display: none !important; }
+
+.drop-zone {
+  margin-top: 12px;
+  border: 2px dashed #b6c3d9;
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.drop-zone:hover,
+.drop-zone:focus-visible { border-color: var(--blue); outline: none; }
+.drop-zone.drag-over {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+.upload-icon { color: var(--blue); margin-bottom: 8px; }
+.drop-zone-text { margin: 4px 0; color: var(--ink); }
+.drop-zone-hint { margin: 4px 0 0; font-size: 0.8rem; color: var(--ink-soft); }
+
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--blue);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.queue-section, .settings-section { margin-top: 28px; }
+
+.queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.queue-header h2, .settings-section h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+.queue-actions { display: flex; gap: 8px; }
+.reorder-hint {
+  margin: 6px 0 12px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.thumb-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.thumb-item {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+.thumb-item.dragging { opacity: 0.4; }
+.thumb-item.drag-over-target { outline: 2px solid var(--blue); }
+
+.thumb-item img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  background: #f1f5f9;
+}
+.thumb-order {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumb-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.thumb-remove:hover { background: var(--danger); }
+.thumb-meta {
+  padding: 6px 8px;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--ink-soft); }
+.field-text { grid-column: 1 / -1; }
+.field select, .field input[type="text"] {
+  font: inherit;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: #fff;
+}
+
+.progress-wrap { margin-top: 20px; }
+.progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  transition: width 0.15s ease;
+}
+.progress-label { margin: 6px 0 0; font-size: 0.8rem; color: var(--ink-soft); text-align: center; }
+
+.convert-bar {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-ghost { background: transparent; }
+.btn-danger { color: var(--danger); }
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  padding: 12px 32px;
+  font-size: 1rem;
+}
+.btn-primary:not(:disabled):hover { background: var(--blue-dark); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  z-index: 20;
+}
+.toast.error { background: var(--danger); }
+
+.app-footer {
+  text-align: center;
+  padding: 16px 20px 28px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 480px) {
+  .app-header { padding-top: 16px; }
+  .drop-zone { padding: 28px 14px; }
+}
+.donate-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.donate-btn {
+  padding: 12px 20px;
+  background-color: #0070ba;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.donate-btn:hover {
+  background-color: #005c99;
+  transform: scale(1.05);
+}
+.download-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.download-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.download-btn:hover {
+  background-color: #1e4fc7;
+}
